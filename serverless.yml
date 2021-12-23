@@ -1,0 +1,73 @@
+plugins:
+  - serverless-offline  
+  - serverless-plugin-typescript
+
+service:
+  name: "happi"
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  stage: ${opt:stage, 'dev'}
+  region: ${self:custom.settings.region, 'us-east-1'}
+  environment:
+    STAGE: ${opt:stage, 'dev'}
+
+custom:
+  serverless-offline:
+    httpPort: 4000
+    stageVariables:
+      foo: "bar"
+
+functions:
+
+  getuser:
+    handler: src/users.get
+    description: Testing ServerLess Local
+    memorySize: 256
+    events:
+      - http:
+          path: /user/{userId}
+          method: get
+          cors: true
+  
+  createuser:
+    handler: src/users.create
+    description: Testing ServerLess Local
+    memorySize: 256
+    events:
+      - http:
+          path: /user
+          method: post
+          cors: true
+
+  transfer:
+    handler: src/users.transfer
+    description: Testing ServerLess Local
+    memorySize: 256
+    events:
+      - http:
+          path: /transfer
+          method: post
+          cors: true          
+
+  deposit:
+    handler: src/users.deposit
+    description: Add Money to user
+    memorySize: 256
+    events:
+      - http:
+          path: /deposit
+          method: post
+          cors: true          
+      
+
+  createorder:
+    handler: src/orders.create
+    description: Testing ServerLess Local
+    memorySize: 256
+    events:
+      - http:
+          path: /order
+          method: post
+          cors: true
