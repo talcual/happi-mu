@@ -1,4 +1,4 @@
-# happi-mu
+# Happi-mu - Another Serverless App XD.
 
 Serverless App. 
 Prisma.io + Serverless-offline
